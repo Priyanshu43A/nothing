@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sakshi 💖</title>
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1b0033;
+            color: #f3e8e8;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        h1, h2, p {
+            margin: 1.5rem 0;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff7eb9;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #ff65a3;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Button Style */
+        .button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            color: #fff;
+            background-color: #ff65a3;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Heart Particle */
+        .heart {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: #ff65a3;
+            clip-path: polygon(50% 0%, 100% 30%, 85% 100%, 50% 80%, 15% 100%, 0 30%);
+            animation: floatHearts 5s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes floatHearts {
+            0% { transform: translateY(0) scale(0.8); }
+            100% { transform: translateY(-100vh) scale(1.2); }
+        }
+
+        /* Handwriting Animation */
+        .handwriting {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #ff65a3;
+            animation: typing 3s steps(30) forwards, blink 0.5s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #ff7eb9;
+            border-radius: 50%;
+            animation: drop 1s linear forwards;
+        }
+
+        @keyframes drop {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section" id="section1">
+        <h1 class="handwriting">Hey Sakshi... 🌸</h1>
+        <p>I've been wanting to tell you something special.</p>
+        <button class="button" onclick="nextSection('section1', 'section2')">Next</button>
+    </div>
+
+    <div class="section" id="section2">
+        <h2 class="handwriting">You're my favorite person in the world.</h2>
+        <p>Every day with you feels like a dream come true.</p>
+        <button class="button" onclick="nextSection('section2', 'section3')">Next</button>
+    </div>
+
+    <div class="section" id="section3">
+        <h1 class="handwriting">Sakshi, will you be mine? 💍</h1>
+        <button class="button" onclick="showConfetti()">YES ❤️</button>
+    </div>
+
+    <!-- Heart Particle Script -->
+    <script>
+        // Show hearts floating up the screen
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        setInterval(createHeart, 200);
+
+        // Next Section Reveal
+        function nextSection(current, next) {
+            document.getElementById(current).style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById(current).style.display = 'none';
+                document.getElementById(next).style.display = 'flex';
+                document.getElementById(next).style.opacity = '1';
+            }, 1000);
+        }
+
+        // Show Confetti on acceptance
+        function showConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+            alert("She said yes! 💖");
+        }
+
+        // Initial animations on page load
+        window.onload = () => {
+            document.getElementById('section1').style.opacity = '1';
+        };
+    </script>
+
+</body>
+</html>
+
