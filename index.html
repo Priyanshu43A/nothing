@@ -13,49 +13,45 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: Arial, sans-serif;
             background-color: #1b0033;
             color: #f3e8e8;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            margin-top: 15vh;
         }
 
-        .section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+        /* Container Styling */
+        .container {
+            max-width: 100%;
+            padding: 20px;
             text-align: center;
-            opacity: 0;
-            transition: opacity 1.5s ease;
         }
 
         h1, h2, p {
-            margin: 1.5rem 0;
             font-weight: 500;
+            color: #ff65a3;
+            margin-bottom: 1rem;
         }
 
         h1 {
-            font-size: 3rem;
-            color: #ff7eb9;
+            font-size: 2rem;
         }
 
         h2 {
-            font-size: 2rem;
-            color: #ff65a3;
+            font-size: 1.5rem;
+            color: #ff7eb9;
         }
 
         p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            line-height: 1.6;
+            font-size: 1rem;
+            color: #f3e8e8;
+            margin-bottom: 1.5rem;
         }
 
-        /* Button Style */
         .button {
-            padding: 12px 30px;
-            font-size: 1.2rem;
+            padding: 10px 25px;
+            font-size: 1rem;
             color: #fff;
             background-color: #ff65a3;
             border: none;
@@ -72,12 +68,12 @@
         /* Heart Particle */
         .heart {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             background-color: #ff65a3;
             clip-path: polygon(50% 0%, 100% 30%, 85% 100%, 50% 80%, 15% 100%, 0 30%);
-            animation: floatHearts 5s linear infinite;
-            opacity: 0.5;
+            animation: floatHearts 6s linear infinite;
+            opacity: 0.7;
         }
 
         @keyframes floatHearts {
@@ -85,56 +81,76 @@
             100% { transform: translateY(-100vh) scale(1.2); }
         }
 
-        /* Handwriting Animation */
-        .handwriting {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid #ff65a3;
-            animation: typing 3s steps(30) forwards, blink 0.5s infinite;
+        /* Reasons Cards */
+        .reasons-container {
+            display: flex;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding: 15px 0;
         }
 
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
+        .reason-card {
+            min-width: 85%;
             background-color: #ff7eb9;
-            border-radius: 50%;
-            animation: drop 1s linear forwards;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            scroll-snap-align: center;
+            color: #fff;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
-        @keyframes drop {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
+        /* Song Section */
+        .song-section {
+            margin-top: 2rem;
+        }
+
+        audio {
+            margin-top: 10px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
-    <div class="section" id="section1">
-        <h1 class="handwriting">Hey Sakshi... 🌸</h1>
+    <!-- Section 1 -->
+    <div class="container" id="section1">
+        <h1>Hey Sakshi... 🌸</h1>
         <p>I've been wanting to tell you something special.</p>
         <button class="button" onclick="nextSection('section1', 'section2')">Next</button>
     </div>
 
-    <div class="section" id="section2">
-        <h2 class="handwriting">You're my favorite person in the world.</h2>
+    <!-- Section 2 -->
+    <div class="container" id="section2" style="display: none;">
+        <h2>You're my favorite person in the world.</h2>
         <p>Every day with you feels like a dream come true.</p>
         <button class="button" onclick="nextSection('section2', 'section3')">Next</button>
     </div>
 
-    <div class="section" id="section3">
-        <h1 class="handwriting">Sakshi, will you be mine? 💍</h1>
+    <!-- Section 3: Reasons -->
+    <div class="container" id="section3" style="display: none;">
+        <h1>100 Reasons Why I Love You 💖</h1>
+        <div class="reasons-container" id="reasonsContainer"></div>
+        <button class="button" onclick="nextSection('section3', 'section4')">Next</button>
+    </div>
+
+    <!-- Section 4: Proposal -->
+    <div class="container" id="section4" style="display: none;">
+        <h1>Sakshi, will you be mine? 💍</h1>
         <button class="button" onclick="showConfetti()">YES ❤️</button>
+    </div>
+
+    <!-- Section 5: Song -->
+    <div class="container song-section" id="section5" style="display: none;">
+        <h1>Song I Wanna Dedicate to You 🎶</h1>
+        <h2>“I Wanna Be Yours” - Arctic Monkeys</h2>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0ryEyJ994SqdJwGJXyS1SF?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        
     </div>
 
     <!-- Heart Particle Script -->
@@ -144,40 +160,69 @@
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.animationDuration = Math.random() * 2 + 4 + 's';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            setTimeout(() => heart.remove(), 6000);
         }
 
         setInterval(createHeart, 200);
 
-        // Next Section Reveal
+        // Navigate to Next Section
         function nextSection(current, next) {
-            document.getElementById(current).style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById(current).style.display = 'none';
-                document.getElementById(next).style.display = 'flex';
-                document.getElementById(next).style.opacity = '1';
-            }, 1000);
+            document.getElementById(current).style.display = 'none';
+            document.getElementById(next).style.display = 'block';
         }
 
         // Show Confetti on acceptance
         function showConfetti() {
             for (let i = 0; i < 100; i++) {
                 const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
+                confetti.classList.add('heart');
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
                 confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
                 document.body.appendChild(confetti);
                 setTimeout(() => confetti.remove(), 3000);
             }
-            alert("She said yes! 💖");
+            //alert("She said yes! 💖");
+            nextSection('section4', 'section5');
         }
+
+        // Reasons for Loving You
+        const reasons = [
+    "You make me smile every day.",
+    "You’re always there for me.",
+    "You’re my best friend.",
+    "You inspire me to be better.",
+    "Your laughter is contagious.",
+    "You have a heart of gold.",
+    "You support my dreams.",
+    "You make the little moments feel special.",
+    "You understand me like no one else.",
+    "You’re incredibly thoughtful.",
+    "You’re my biggest cheerleader.",
+    "You make me feel safe and loved.",
+    "Your smile lights up my world.",
+    "You bring out the best in me.",
+    "You listen to me, even when I don’t make sense.",
+    "You’re my favorite adventure partner.",
+    "You make even the simplest things feel exciting.",
+    "You believe in me, even when I doubt myself.",
+    "You’re kind and compassionate.",
+    "You make every day brighter just by being in it."
+];
+
+        const reasonsContainer = document.getElementById('reasonsContainer');
+        reasons.forEach(reason => {
+            const card = document.createElement('div');
+            card.classList.add('reason-card');
+            card.innerText = reason;
+            reasonsContainer.appendChild(card);
+        });
 
         // Initial animations on page load
         window.onload = () => {
-            document.getElementById('section1').style.opacity = '1';
+            document.getElementById('section1').style.display = 'block';
         };
     </script>
 
